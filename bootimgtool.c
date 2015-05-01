@@ -32,6 +32,7 @@
 struct variant *variants[] = {
     &variant_standard,
     &variant_qcom,
+    &variant_fsl,
     NULL
 };
 
