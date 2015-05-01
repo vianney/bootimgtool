@@ -8,4 +8,5 @@ bootimgtool_SOURCES = \
 	io.h \
 	sha.c \
 	sha.h \
-	variant_standard.c
+	variant_standard.c \
+	variant_qcom.c

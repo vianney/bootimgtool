@@ -90,6 +90,7 @@ struct variant {
 
 // Implemented variants
 extern struct variant variant_standard;
+extern struct variant variant_qcom;
 
 #endif // BOOTIMGTOOL_H
 
