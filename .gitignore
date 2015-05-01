@@ -1,2 +1,17 @@
+/Makefile
+/Makefile.in
+/aclocal.m4
+/autom4te.cache/
+/config.*
+/configure
+/compile
+/depcomp
+/install-sh
+/missing
+/m4/
+.deps/
+stamp-*
 *.o
+*~
+*.user
 bootimgtool
