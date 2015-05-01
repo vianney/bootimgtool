@@ -6,4 +6,6 @@ bootimgtool_SOURCES = \
 	bootimg.h \
 	io.c \
 	io.h \
+	sha.c \
+	sha.h \
 	variant_standard.c

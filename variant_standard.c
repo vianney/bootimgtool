@@ -27,6 +27,7 @@
 #include <fcntl.h>
 
 #include "bootimgtool.h"
+#include "sha.h"
 
 int standard_read(struct bootimg *img) {
     struct boot_img_hdr *hdr = (struct boot_img_hdr *) img->image.data;
@@ -93,7 +94,19 @@ int standard_write(struct bootimg *img, int fd) {
     if (strlen(img->cmdline) >= (BOOT_ARGS_SIZE - 1))
         strncpy(hdr.extra_cmdline, img->cmdline + BOOT_ARGS_SIZE - 1,
                 BOOT_EXTRA_ARGS_SIZE);
-    // TODO write id
+
+    sha_ctx hash;
+    sha_init(&hash);
+    sha_update(&hash, img->kernel.data, img->kernel.size);
+    sha_update(&hash, &img->kernel.size, sizeof(img->kernel.size));
+    sha_update(&hash, img->ramdisk.data, img->ramdisk.size);
+    sha_update(&hash, &img->ramdisk.size, sizeof(img->ramdisk.size));
+    sha_update(&hash, img->second.data, img->second.size);
+    sha_update(&hash, &img->second.size, sizeof(img->second.size));
+    char digest[SHA_DIGEST_LENGTH];
+    sha_final(&hash, digest);
+    memcpy(hdr.id, digest,
+           SHA_DIGEST_LENGTH > sizeof(hdr.id) ? sizeof(hdr.id) : SHA_DIGEST_LENGTH);
 
     if (io_write_padded(fd, &hdr, sizeof(boot_img_hdr), img->page_size) < 0 ||
         io_write_padded(fd, img->kernel.data, img->kernel.size, img->page_size) < 0 ||
