@@ -93,7 +93,7 @@ int qcom_write(struct bootimg *img, int fd) {
     strncpy(hdr.cmdline, img->cmdline, BOOT_ARGS_SIZE - 1);
     hdr.cmdline[BOOT_ARGS_SIZE - 1] = '\0';
     if (strlen(img->cmdline) >= (BOOT_ARGS_SIZE - 1))
-        fprintf(stderr, "Warning: cmdline too long (got %lu, max %d), chopping\n",
+        fprintf(stderr, "Warning: cmdline too long (got %lu, max %d), chopped.\n",
                 strlen(img->cmdline), BOOT_ARGS_SIZE - 1);
 
     sha_ctx hash;
