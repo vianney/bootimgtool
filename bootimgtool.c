@@ -297,6 +297,7 @@ static void print_usage() {
     fprintf(stderr, "\nDefault file names:\n");
     struct bootimg defaults;
     init_bootimg(&defaults);
+    fprintf(stderr, "  parameters: %s\n", defaults.params.name);
     fprintf(stderr, "  kernel: %s\n", defaults.kernel.name);
     fprintf(stderr, "  ramdisk: %s\n", defaults.ramdisk.name);
     fprintf(stderr, "  second: %s\n", defaults.second.name);
