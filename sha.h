@@ -17,16 +17,10 @@
 #ifndef SHA_H
 #define SHA_H
 
-#include "config.h"
-
 #define SHA_DIGEST_SIZE 20
 
-#ifdef HAVE_LIBCRYPTO
 #include <openssl/sha.h>
 typedef SHA_CTX sha_ctx;
-#else
-typedef struct {} sha_ctx;
-#endif
 
 /**
  * Initialize sha_ctx.

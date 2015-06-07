@@ -18,8 +18,6 @@
 
 #include "sha.h"
 
-#ifdef HAVE_LIBCRYPTO
-
 int sha_init(sha_ctx *ctx) {
     return SHA1_Init(ctx);
 }
@@ -31,24 +29,3 @@ int sha_update(sha_ctx *ctx, const void *data, size_t len) {
 int sha_final(sha_ctx *ctx, char *digest) {
     return SHA1_Final((unsigned char *) digest, ctx);
 }
-
-#else
-
-#include <stdio.h>
-#include <string.h>
-
-int sha_init(sha_ctx *ctx) {
-    return 0;
-}
-
-int sha_update(sha_ctx *ctx, const void *data, size_t len) {
-    return 0;
-}
-
-int sha_final(sha_ctx *ctx, char *digest) {
-    fprintf(stderr, "Warning: SHA1 support not compiled, returning 0 digest.\n");
-    memset(digest, 0, SHA_DIGEST_LENGTH);
-    return 0;
-}
-
-#endif
